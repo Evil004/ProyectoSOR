@@ -155,11 +155,8 @@ do
                 Clear-Host  
                 SSID
                 pause
+          
            } '7' { 
-                Clear-Host  
-                SaberServidor
-                pause
-           } '8' { 
                 Clear-Host  
                 Saberservicios 
                 pause
