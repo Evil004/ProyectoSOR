@@ -117,8 +117,7 @@ function mostrarMenu
      Write-Host "4) Replicar Datos"     
      Write-Host "5) Adaptador"     
      Write-Host "6) Usuario y SSID"     
-     Write-Host "7) Saber servidor"
-     Write-Host "8) Saber servicios instalados"
+     Write-Host "7) Saber servicios instalados"
      Write-Host "S) Presiona 'S' para salir" 
 }
 #Bucle principal del Script. El bucle se ejecuta de manera infinita hasta que se cumple
