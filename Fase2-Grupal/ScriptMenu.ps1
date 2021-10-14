@@ -7,10 +7,7 @@
 #o 
 #./menu.ps1 -Param1 parametro1 -Param2 parametro2
 #Los parámetros son opcionales, si la llamada es:./menu.ps1 --> los valores de $Param1 y $Param2, será la cadena de texto vacía.
-Param(
-  [string]$Param1,
-  [string]$Param2
-)
+
 Write-Host "Los parámetros son:"$Param1 " " $Param2
 pause
 
