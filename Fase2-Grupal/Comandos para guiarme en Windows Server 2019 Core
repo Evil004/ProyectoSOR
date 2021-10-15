@@ -1,0 +1,59 @@
+Comandos para guiarme en Windows Server 2019 Core:
+
+*/espacio
+1#Para importar cmdlets relacionados con los servicios de dominio de Active Directory:
+Import-Module*ADDSDeployment
+
+2#Para degradar el controlador de dominio de Active Directory:
+Uninstall-ADDSDomainController* -DemoteOperationMasterRole:$true* -ForceRemoval:$true*-Force:$true
+
+3#Par volver identificarnos en el dominio:
+Ctrl+Alt+T
+
+4#Para comprobar que todo está correcto: sconfig
+
+5#Si ya hemos desinstalado el servidor lo degradamos:
+Uninstall-WindowsFeature*-Name* AD-Domain-Services,*DNS*-Confirm:$false
+
+6#
+
+7#Para reiniciar el servidor:
+Restart-Computer
+
+8#Contenido del script (configurarCore.bat):
+@echo off
+for /f %%a in ('hostname') do set ant=%%a
+echo Nombre actual del servidor: %ant%
+set /p newName= Escribe un nombre nuevo para el servidor:
+netdom renamecomputer %ant% /newname:%newName%
+echo Los valores actuales para la red son:
+netsh interface ipv4 show interfaces echo Nuevos valores de red:
+set /p int= Elije la tarjeta de red:
+set /p ip= Escribe la dirección IP fija:
+set /p subred= Escribe la máscara de red:
+set /p gateway= Escribe la puerta de enlace:
+netsh*interface*ipv4*set*address name=%int%*source=static*address=%ip% mask=%subred%*gateway=%gateway%
+netsh*interface*ipv4*add*dnsserver name=%int%*address=%ip%*index=1
+echo Cambios efectuados. Los valores actuales para la red son:
+netsh interface ipv4 show address
+
+9#Configuracion previa del servidor:
+$nameServer="orion"
+$addressIP="192.25.81.254"
+$networkInternal="Ethernet 1"
+Rename-Computer -NewName $nameServer
+Get-NetAdapter*–name $networkInternal | Remove-NetIPAddress*-Confirm:$false
+Get-NetAdapter*–name $networkInternal | New-NetIPAddress*–addressfamily IPv4 –ipaddress $addressIP*–prefixlength 24 –type unicast
+Restart-Computer*-force
+
+10#comanfo powershell para abrir una consola ps:
+PS*C:\> Get-Windowsfeature
+
+11#Para instalar AD-DOMAIN Services o DNS:
+PS*C:\>Install-WindowsFeature*-name AD-Domain-Services,DNS* -IncludeManagementTools
+
+12#Para ver qué Comandos podemos ejecutar:
+PS*C:\>Get-Command*-module* ADDSDeployment
+
+13#Para reiniciar la máquina durante un periodo de tiempo (el número, es el número de minutos en tardar en reiniciar)
+shutdown*r/*t/*10
