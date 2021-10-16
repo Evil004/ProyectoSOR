@@ -115,6 +115,7 @@ function mostrarMenu
      Write-Host "5) Adaptador"     
      Write-Host "6) Usuario y SSID"     
      Write-Host "7) Saber servicios instalados"
+     Write-host "9) Comprobar relacion de confianza entre 2 bosques"
      Write-Host "S) Presiona 'S' para salir" 
 }
 #Bucle principal del Script. El bucle se ejecuta de manera infinita hasta que se cumple
@@ -157,6 +158,9 @@ do
                 Clear-Host  
                 Saberservicios 
                 pause
+           } '7' {
+               Netdom Trust <TrustingDomain> /D:<TrustedDomain> /Verify
+           
            } 's' {
                 'Saliendo del script...'
                 return 
