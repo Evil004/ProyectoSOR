@@ -1,2 +1,2 @@
-Name:Surname:Surname2:Description:AcountPassword:ContainerPath
-Juan:Gimenez:Sevilla:Administrador parcial 1:123456789:UO=Administradores-Parciales
+Name:Surname:Surname2:Group:Description:AcountPassword:ContainerPath
+Juan:Gimenez:Sevilla:GG_Parcial1:Administrador parcial 1:123456789:UO=Administradores-Parciales
