@@ -1,9 +1,8 @@
-
 $dominio="san-gva"
 $sufijo="es"
 #En la variable dc componemos el nombre dominio y sufijo. Ejemplo: dc=smr,dc=local.
 
-$dc="dc="+$dominio+",dc="+$sufijo
+$dc="DC="+$dominio+",DC="+$sufijo
 
 #
 #Primero hay que comprobar si se tiene cargado el módulo Active Directory
@@ -32,10 +31,9 @@ $fichero_csv_importado = import-csv -Path $fichero_csv -Delimiter :
 foreach($linea_leida in $fichero_csv_importado)
 {
 	#Componemos la ruta donde queda ubicado el objeto a crear (usuario). Ejemplo: OU=DepInformatica,dc=smr,dc=local
-  Write-Host $linea_leida.ContainerPath
+  
   $rutaContenedor = $linea_leida.ContainerPath+","+$dc 
 
-  Write-Host $rutaContenedor
 
   #Guardamos de manera segura la contraseña con el comando ConvertTo-SecureString.
 
@@ -61,8 +59,8 @@ foreach($linea_leida in $fichero_csv_importado)
 	
   #Asignar la cuenta de Usuario creada a un Grupo
 	# Distingued Name CN=Nombre-grupo,ou=..,ou=..,dc=..,dc=...
-	$cnGrpAccount="Cn="+$linea_leida.Group+","+$linea_leida.GroupPath
-	Add-ADGroupMember -Identity $cnGrpAccount -Members $name
+	#$cnGrpAccount="CN="+$linea_leida.Group+","+$linea_leida.GroupPath
+	Add-ADGroupMember -Identity $linea_leida.Group -Members $name
 	
 	
 
