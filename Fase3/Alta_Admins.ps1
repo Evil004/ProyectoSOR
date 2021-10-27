@@ -1,7 +1,6 @@
 
-param($a,$b)
-$dominio=$a
-$sufijo=$b
+$dominio="san-gva"
+$sufijo="es"
 #En la variable dc componemos el nombre dominio y sufijo. Ejemplo: dc=smr,dc=local.
 
 $dc="dc="+$dominio+",dc="+$sufijo
