@@ -1,28 +1,3 @@
-Capturamos los 2 parámetros que hemos pasado en la ejecución del script
-# Ejemplo: user-a-grupo.ps1 smr local 
-param($a,$b)
-$dominio=$a
-$sufijo=$b
-$dc="dc="+$dominio+",dc="+$sufijo
-
-
-#Primero comprobaremos si se tiene cargado el módulo Active Directory
-if (!(Get-Module -Name ActiveDirectory)) #Accederá al then solo si no existe una entrada llamada ActiveDirectory
-{
-  Import-Module ActiveDirectory #Se carga el módulo
-}
-#
-#Añadir usuarios a grupos
-#
-$fileUsersCsv=Read-Host "Introduce el fichero csv de los usuarios:"
-$fichero = import-csv -Path $fileUsersCsv -Delimiter :
-
-#El fichero csv tiene esta estructura (2 campos)
-#Grupo:Usuario
-#grupo1:user1
-#grupo2:user2
-
-foreach($linea in $fichero)
-{
-	Add-ADGroupMember -Identity $linea.Grupo -Members $linea.Usuario
-}
+New-ADOrganizationalUnit -Name "Administradores-Parciales" -Path "DC=san-gva, DC=es"
+New-ADOrganizationalUnit -Name "Administradors" -Path "OU=Administradores-Parciales,DC=san-gva, DC=es"
+New-ADOrganizationalUnit -Name "Plantilla" -Path "OU=Administradores-Parciales,DC=san-gva, DC=es"
